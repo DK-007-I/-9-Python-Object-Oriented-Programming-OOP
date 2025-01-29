@@ -49,3 +49,56 @@ hero.go_on_a_trip()
 hero.start_training()
 hero.start_the_battle()
 hero.go_back()
+
+task_3:
+class GameCharacter:
+    def __init__(self, name, level, health, attack):
+        """Создаём персонажа с его характеристиками."""
+        self.name = name  # Имя персонажа
+        self.level = level  # Уровень персонажа
+        self.health = health  # Количество здоровья
+        self.attack = attack  # Сила атаки
+
+    def deal_damage(self, enemy):
+        """Наносит урон другому персонажу."""
+        if enemy.health > 0:  # Проверяем, жив ли враг
+            enemy.health -= self.attack  # Уменьшаем здоровье врага на значение атаки
+            print(f"{self.name} атакует {enemy.name} и наносит {self.attack} урона!")
+            
+            # Если здоровье врага стало 0 или меньше, он погибает
+            if enemy.health <= 0:
+                enemy.health = 0
+                print(f"{enemy.name} погиб!")
+        else:
+            print(f"{enemy.name} уже мёртв, атаковать нельзя.")
+
+    def heal(self, amount):
+        """Восстанавливает здоровье персонажа."""
+        self.health += amount  # Увеличиваем здоровье
+        print(f"{self.name} восстановил {amount} здоровья. Теперь у него {self.health} здоровья.")
+
+    def print_info(self):
+        """Выводит информацию о персонаже."""
+        print(f"Имя: {self.name}, Уровень: {self.level}, Здоровье: {self.health}, Атака: {self.attack}")
+
+
+# Создаём двух персонажей
+hero1 = GameCharacter("Артур", 5, 100, 20)  # Воин Артур
+hero2 = GameCharacter("Моргана", 4, 80, 25)  # Маг Моргана
+
+# Выводим информацию о персонажах перед битвой
+hero1.print_info()
+hero2.print_info()
+
+# Артур атакует Моргану
+hero1.deal_damage(hero2)
+
+# Моргана атакует Артура
+hero2.deal_damage(hero1)
+
+# Моргана лечится на 10 единиц здоровья
+hero2.heal(10)
+
+# Выводим информацию после атак и лечения
+hero1.print_info()
+hero2.print_info()
